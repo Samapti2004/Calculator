@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Professional Calculator</title>
+  <link rel="stylesheet" href="calculator.css">
+</head>
+<body>
+    <div class="calculator">
+  <div class="display" id="display">0</div>
+  <div class="buttons">
+    <button class="clear" onclick="clearDisplay()">C</button>
+    <button class="operator" onclick="appendOperator('/')">÷</button>
+    <button class="operator" onclick="appendOperator('*')">×</button>
+    <button class="operator" onclick="appendOperator('-')">−</button>
+
+    <button onclick="appendNumber('7')">7</button>
+    <button onclick="appendNumber('8')">8</button>
+    <button onclick="appendNumber('9')">9</button>
+    <button class="operator" onclick="appendOperator('+')">+</button>
+
+    <button onclick="appendNumber('4')">4</button>
+    <button onclick="appendNumber('5')">5</button>
+    <button onclick="appendNumber('6')">6</button>
+    <button onclick="appendNumber('1')">1</button>
+
+    <button onclick="appendNumber('2')">2</button>
+    <button onclick="appendNumber('3')">3</button>
+    <button onclick="appendNumber('0')">0</button>
+    <button onclick="appendNumber('.')">.</button>
+
+    <button class="equal" onclick="calculate()">=</button>
+  </div>
+</div>
+  <script>
+    const display = document.getElementById("display");
+    let currentInput = "";
+
+    function appendNumber(num) {
+      if (display.innerText === "0" || currentInput === "0") {
+        currentInput = "";
+      }
+      currentInput += num;
+      display.innerText = currentInput;
+    }
+
+    function appendOperator(op) {
+      const lastChar = currentInput.slice(-1);
+      if ("+-*/".includes(lastChar)) {
+        currentInput = currentInput.slice(0, -1);
+      }
+      currentInput += op;
+      display.innerText = currentInput;
+    }
+
+    function clearDisplay() {
+      currentInput = "";
+      display.innerText = "0";
+    }
+
+    function calculate() {
+      try {
+        const result = eval(currentInput);
+        display.innerText = result;
+        currentInput = result.toString();
+      } catch {
+        display.innerText = "Error";
+        currentInput = "";
+      }
+    }
+  </script>
+
+</body>
+</html>
+
+
